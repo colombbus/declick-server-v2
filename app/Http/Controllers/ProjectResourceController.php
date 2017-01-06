@@ -92,7 +92,13 @@ class ProjectResourceController extends Controller
                 $filePath
             );
         } else {
-            file_put_contents($filePath, $request->getContent());
+            $fileContents = $request->getContent();
+            $index = strpos($fileContents, 'data:image/png;base64,');
+            if ($index === 0) {
+                $fileContents = substr($fileContents, 22);
+                $fileContents = base64_decode($fileContents);
+            }
+            file_put_contents($filePath, $fileContents);
         }
 
         return response('', 204);
