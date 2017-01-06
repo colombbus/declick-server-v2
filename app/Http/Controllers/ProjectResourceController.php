@@ -140,6 +140,12 @@ class ProjectResourceController extends Controller
 
         $this->authorize('delete', $resource);
 
+        $directoryPath =
+            storage_path('app/projects/' . $projectId . '/resources');
+        $filePath = $directoryPath . '/' . $resourceId;
+
+        unlink($filePath);
+
         $resource->delete();
 
         return response('', 204);
