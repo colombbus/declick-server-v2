@@ -16,6 +16,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+
         $this->validate($request, [
             'username' => 'required|max:255|unique:users',
             'email' => 'max:255|email|unique:users',
@@ -24,9 +25,12 @@ class UserController extends Controller
 
         $values = array_only($request->input(), ['username', 'email']);
         $values['password_hash'] = Hash::make($request->input(['password']));
+        var_dump($values['password_hash']);
 
         $user = User::create($values);
-
+        
+        $user->password_hash = $values['password_hash'];
+        $user->save();
         return response($user, 201, [
             'Location' => route('users', ['id' => $user->id])
         ]);
