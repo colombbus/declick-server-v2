@@ -144,7 +144,9 @@ class ProjectResourceController extends Controller
             storage_path('app/projects/' . $projectId . '/resources');
         $filePath = $directoryPath . '/' . $resourceId;
 
-        unlink($filePath);
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
 
         $resource->delete();
 
