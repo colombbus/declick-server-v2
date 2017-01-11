@@ -30,10 +30,12 @@ class AuthorizationServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
 
         Auth::viaRequest('api', function ($request) {
-            if ($request->hasHeader('Authorization')) {
+            $headers = getallheaders();
+
+            if (isset($headers['Authorization'])) {
 
                 list($type, $value) =
-                    explode(' ', $request->header('Authorization'), 2);
+                    explode(' ', $headers['Authorization'], 2);
 
                 if ($type === 'Token') {
                     $authorization = Authorization
