@@ -45,7 +45,7 @@ class UserController extends Controller
 
         $this->authorize('indexProjects', $user);
 
-        return $user->projects();
+        return $user->projects()->get();
     }
 
     public function showDefaultProject($id)
