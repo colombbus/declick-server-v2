@@ -27,8 +27,6 @@ class UserController extends Controller
         $values['password_hash'] = Hash::make($request->input(['password']));
         $user = User::create($values);
 
-        $user->password_hash = $values['password_hash'];
-        $user->save();
         return response($user, 201, [
             'Location' => route('users', ['id' => $user->id])
         ]);
