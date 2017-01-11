@@ -72,7 +72,8 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
     // projects resources routes
     $app->get(
-        'projects/{projectId}/resources/{resourceId}/content',
+        'projects/{projectId}/resources/{resourceId}/' .
+        'content{extension:(?:\\..+)?}',
         'ProjectResourceController@showContent'
     );
 
