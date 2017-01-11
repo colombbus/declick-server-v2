@@ -42,6 +42,6 @@ class User extends Model implements AuthorizableContract
 
     public function defaultProject()
     {
-        return $this->hasOne('App\Project', 'id', 'default_project_id');
+        return $this->belongsTo('App\Project', 'default_project_id');
     }
 }
