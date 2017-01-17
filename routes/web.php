@@ -22,7 +22,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->post('users', 'UserController@create');
     $app->get('users/{id}', [
         'as' => 'users',
-        'uses' => 'UserController@show'
+        'uses' => 'UserController@show',
      ]);
     $app->group(['middleware' => 'members-only'], function () use ($app) {
         $app->patch('users/{id}', 'UserController@update');
@@ -44,7 +44,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->group(['middleware' => 'members-only'], function () use ($app) {
         $app->get('authorizations/{id}', [
             'as' => 'authorizations',
-            'uses' => 'AuthorizationController@show'
+            'uses' => 'AuthorizationController@show',
         ]);
         $app->delete('authorizations/{id}', 'AuthorizationController@delete');
     });
@@ -53,7 +53,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->get('projects', 'ProjectController@index');
     $app->get('projects/{id}', [
         'as' => 'projects',
-        'uses' => 'ProjectController@show'
+        'uses' => 'ProjectController@show',
     ]);
 
 
@@ -99,5 +99,29 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
             'resources/{resourceId}',
             'ProjectResourceController@delete'
         );
+    });
+
+    // circuits routes
+    $app->get('circuits', 'CircuitController@index');
+    $app->post('circuits', 'CircuitController@create');
+    $app->get('circuits/{id}', [
+        'as' => 'circuits',
+        'uses' => 'CircuitController@show',
+    ]);
+    $app->delete('circuits/{id}', 'CircuitController@delete');
+
+    // circuits nodes routes
+    $app->group(['prefix' => 'circuits/{circuitId}'], function () use ($app) {
+        $app->post('nodes', 'CircuitNodeController@create');
+        $app->patch('nodes/{nodeId}', 'CircuitNodeController@update');
+        $app->get('nodes/{nodeId}', [
+            'as' => 'nodes',
+            'uses' => 'CircuitNodeController@show',
+        ]);
+        $app->get(
+            'nodes/{nodeId}/children',
+            'CircuitNodeController@indexChildren'
+        );
+        $app->delete('nodes/{nodeId}', 'CircuitNodeController@delete');
     });
 });
