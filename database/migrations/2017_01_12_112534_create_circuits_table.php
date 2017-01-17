@@ -18,7 +18,7 @@ class CreateCircuitsTable extends Migration
             $table->string('name');
             $table->string('short_description');
             $table->string('description');
-            $table->integer('root_node_id')->unsigned();
+            $table->integer('root_node_id')->unsigned()->nullable();
         });
     }
 
