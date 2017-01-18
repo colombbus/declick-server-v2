@@ -1,3 +1,4 @@
 .env
 /nbproject
 /vendor
+/public/.htaccess
