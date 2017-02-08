@@ -66,7 +66,7 @@ class CircuitNodeController extends Controller
 
     public function delete($circuitId, $nodeId)
     {
-        $circuit = Project::findOrFail($circuitId);
+        $circuit = Circuit::findOrFail($circuitId);
 
         $node = CircuitNode::findOrFail($nodeId);
 
