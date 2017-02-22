@@ -112,6 +112,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
     // circuits nodes routes
     $app->group(['prefix' => 'circuits/{circuitId}'], function () use ($app) {
+        $app->get('nodes', 'CircuitNodeController@index');
         $app->post('nodes', 'CircuitNodeController@create');
         $app->patch('nodes/{nodeId}', 'CircuitNodeController@update');
         $app->get('nodes/{nodeId}', [

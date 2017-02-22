@@ -9,6 +9,13 @@ use App\CircuitNode;
 
 class CircuitNodeController extends Controller
 {
+    public function index($circuitId)
+    {
+        $circuit = Circuit::findOrFail($circuitId);
+
+        return $circuit->nodes()->get();
+    }
+
     public function create(Request $request, $circuitId)
     {
         $circuit = Circuit::findOrFail($circuitId);
@@ -20,7 +27,7 @@ class CircuitNodeController extends Controller
             'position',
         ]);
 
-        $node = CircuitNode::create($values);
+        $node = $circuit->nodes()->create($values);
 
         return response($node, 201, [
             'Location' => route('nodes', [

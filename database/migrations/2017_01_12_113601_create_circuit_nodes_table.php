@@ -19,6 +19,10 @@ class CreateCircuitNodesTable extends Migration
             $table->string('link')->nullable();
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('position')->unsigned()->nullable();
+            $table->integer('circuit_id')->unsigned();
+            $table->foreign('circuit_id')
+                ->references('id')->on('circuit')
+                ->onDelete('cascade');
         });
 
         Schema::table('circuit_nodes', function (Blueprint $table) {

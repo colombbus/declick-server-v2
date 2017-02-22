@@ -30,4 +30,9 @@ class Circuit extends Model
     {
         return $this->belongsTo('App\CircuitNode', 'root_node_id');
     }
+
+    public function nodes()
+    {
+        return $this->hasMany('App\CircuitNode');
+    }
 }

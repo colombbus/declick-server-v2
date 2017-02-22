@@ -29,9 +29,7 @@ class CircuitController extends Controller
             'link' => null
         ]);
 
-        $circuit->rootNode()->associate($rootNode);
-
-        $circuit->save();
+        $circuit->nodes()->save($rootNode);
 
         return response($circuit, 201, [
             'Location' => route('circuits', ['id' => $circuit->id])
