@@ -24,7 +24,7 @@ class CircuitController extends Controller
 
         $circuit = Circuit::create($values);
 
-        $rootNode = CircuitNode::create([
+        $rootNode = $circuit->nodes()->create([
             'name' => null,
             'link' => null
         ]);
@@ -32,8 +32,6 @@ class CircuitController extends Controller
         $circuit->rootNode()->associate($rootNode);
 
         $circuit->save();
-
-        $circuit->nodes()->save($rootNode);
 
         return response($circuit, 201, [
             'Location' => route('circuits', ['id' => $circuit->id])
