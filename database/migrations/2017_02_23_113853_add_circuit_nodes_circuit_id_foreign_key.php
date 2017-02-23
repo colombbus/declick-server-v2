@@ -16,7 +16,7 @@ class AddCircuitNodesCircuitIdForeignKey extends Migration
         Schema::table('circuit_nodes', function (Blueprint $table) {
             $table->integer('circuit_id')->unsigned();
             $table->foreign('circuit_id')
-                ->references('id')->on('circuit')
+                ->references('id')->on('circuits')
                 ->onDelete('cascade');
         });
     }
