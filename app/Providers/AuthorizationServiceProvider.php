@@ -25,8 +25,8 @@ class AuthorizationServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::policy(Authorization::class, AuthorizationPolicy::class);
-        Gate::policy(Project::class, ProjectPolicy::class);
-        Gate::policy(ProjectResource::class, ProjectResourcePolicy::class);
+        // Gate::policy(Project::class, ProjectPolicy::class);
+        // Gate::policy(ProjectResource::class, ProjectResourcePolicy::class);
         Gate::policy(User::class, UserPolicy::class);
 
         Auth::viaRequest('api', function ($request) {
