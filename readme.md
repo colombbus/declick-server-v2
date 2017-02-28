@@ -36,3 +36,6 @@ Declick Server is built on [Lumen platform](http://lumen.laravel.com/). Therefor
 7.  Copy public/htaccess.example into public/.htaccess - set RewriteBase according to your server configuration
 8.  Browse to *server_adress*/public/ and check that it returns Lumen version
 
+```
+Lumen (5.3.2) (Laravel Components 5.3.*)
+```
