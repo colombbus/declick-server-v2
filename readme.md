@@ -1,4 +1,4 @@
-# Declick Platform v2
+# Declick Server v2
 
 This component is part of [Declick v2 platform](https://github.com/colombbus/declick-v2).
 
