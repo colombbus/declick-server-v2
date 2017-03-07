@@ -44,4 +44,9 @@ class User extends Model implements AuthorizableContract
     {
         return $this->belongsTo('App\Project', 'default_project_id');
     }
+
+    public function results()
+    {
+        return $this->hasMany('App\UserResult', 'user_id');
+    }
 }

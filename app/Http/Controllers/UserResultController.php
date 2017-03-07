@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\User;
+use App\UserResult;
+
+class UserResultController extends Controller
+{
+    public function index($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        return $user->results;
+    }
+
+    public function create(Request $request, $userId)
+    {
+        $user = User::findOrFail($userId);
+
+        $values = array_only($request->input(), [
+            'step_id',
+            'passed',
+            'solution'
+        ]);
+
+        $result = $user->results()->create($values);
+
+        return response($result, 201);
+    }
+
+    public function delete($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        $user->results()->delete();
+
+        return response('', 204);
+    }
+}

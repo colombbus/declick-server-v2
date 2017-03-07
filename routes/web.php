@@ -38,6 +38,16 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         $app->get('projects/default', 'UserController@showDefaultProject');
     });
 
+    // users results
+    $app->group([
+        'prefix' => 'users/{userId}',
+        'middleware' => 'members-only',
+    ], function () use ($app) {
+        $app->get('results', 'UserResultController@index');
+        $app->post('results', 'UserResultController@create');
+        $app->delete('results', 'UserResultController@delete');
+    });
+
     // authorizations routes
     $app->get('authorizations', 'AuthorizationController@index');
     $app->post('authorizations', 'AuthorizationController@create');
@@ -56,19 +66,11 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         'uses' => 'ProjectController@show',
     ]);
 
-
-
     $app->group(['middleware' => 'members-only'], function () use ($app) {
         $app->post('projects', 'ProjectController@create');
         $app->patch('projects/{id}', 'ProjectController@update');
         $app->delete('projects/{id}', 'ProjectController@delete');
     });
-
-
-    // project exercices
-    // $app->get('projects/exercices','ProjectController@show_exercices');
-
-
 
     // projects resources routes
     $app->get(
