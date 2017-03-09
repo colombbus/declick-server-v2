@@ -20,6 +20,15 @@ class UserResultController extends Controller
     {
         $user = User::findOrFail($userId);
 
+        $previousResult = UserResult::where([
+            'step_id' => $request->input('step_id'),
+            'user_id' => $userId
+        ])->first();
+
+        if ($previousResult) {
+            $previousResult->delete();
+        }
+
         $values = array_only($request->input(), [
             'step_id',
             'passed',
