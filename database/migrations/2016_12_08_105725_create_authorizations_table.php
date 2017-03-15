@@ -14,6 +14,7 @@ class CreateAuthorizationsTable extends Migration
     public function up()
     {
         Schema::create('authorizations', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('owner_id')->unsigned();
             $table->foreign('owner_id')

@@ -14,6 +14,7 @@ class CreateCircuitsTable extends Migration
     public function up()
     {
         Schema::create('circuits', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('short_description');

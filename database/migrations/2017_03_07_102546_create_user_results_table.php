@@ -14,6 +14,7 @@ class CreateUserResultsTable extends Migration
     public function up()
     {
         Schema::create('user_results', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')

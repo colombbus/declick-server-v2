@@ -14,6 +14,7 @@ class CreateProjectResourcesTable extends Migration
     public function up()
     {
         Schema::create('project_resources', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('file_name');
             $table->string('media_type');
