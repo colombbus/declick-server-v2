@@ -42,10 +42,10 @@ class CreateCircuitNodesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('circuit_nodes');
-
         Schema::table('circuits', function (Blueprint $table) {
             $table->dropForeign('circuits_root_node_id_foreign');
         });
+
+        Schema::drop('circuit_nodes');
     }
 }
