@@ -21,7 +21,7 @@ class CreateUserResultsTable extends Migration
                 ->references('id')->on('users');
             $table->integer('step_id')->unsigned();
             $table->foreign('step_id')
-                ->references('id')->on('circuit_steps')
+                ->references('id')->on('circuit_nodes')
                 ->onDelete('cascade');
             $table->boolean('passed')->default(false);
             $table->longText('solution')->nullable();
