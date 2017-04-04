@@ -19,6 +19,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
     // users routes
     $app->get('users', 'UserController@index');
+    $app->post('test/username', 'UserController@testUsernameAvailable');
     $app->post('users', 'UserController@create');
     $app->get('users/{id}', [
         'as' => 'users',

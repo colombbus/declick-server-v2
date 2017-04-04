@@ -14,6 +14,15 @@ class UserController extends Controller
         return User::all();
     }
 
+    public function testUsernameAvailable(Request $request)
+    {
+        if ($request->input('username') !== null) {
+            $filters = ['username' => $request->input('username')];
+            $user = User::where($filters)->first();
+            return ['result' => $user === null];
+        }
+    }
+
     public function create(Request $request)
     {
         $this->validate($request, [
