@@ -24,23 +24,37 @@ class AuthorizationController extends Controller
 
     public function create(Request $request)
     {
-        $this->validate($request, [
-            'username' => 'required|exists:users',
-            'password' => 'required',
-        ]);
+        $errors = [];
+        $failure = false;
+
+        if ($request->input('username') === null) {
+            $failure = true;
+            $errors[] = 'MISSING_FIELD_USERNAME';
+        }
+
+        if ($request->input('password') === null) {
+            $failure = true;
+            $errors[] = 'MISSING_FIELD_PASSWORD';
+        }
+
+        if ($failure) {
+            return response(['errors' => $errors], 400);
+        }
 
         $filters = array_only($request->input(), ['username']);
 
-        $owner = User::where($filters)->firstOrfail();
-
-        if (!Hash::check($request->input('password'), $owner->password_hash)) {
-            abort(401);
+        $owner = User::where($filters)->first();
+        if ($owner === null) {
+            $errors[] = 'NO_MATCH_FOUND';
+            return response(['errors' => $errors], 401);
         }
 
-        $values = [
-            'token' => Str::random(32),
-        ];
+        if (!Hash::check($request->input('password'), $owner->password_hash)) {
+            $errors[] = 'NO_MATCH_FOUND';
+            return response(['errors' => $errors], 401);
+        }
 
+        $values = ['token' => Str::random(32)];
         $authorization = $owner->authorizations()->create($values);
 
         return response($authorization, 201, [
