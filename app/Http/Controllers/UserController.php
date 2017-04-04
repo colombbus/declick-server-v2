@@ -16,7 +16,6 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-
         $this->validate($request, [
             'username' => 'required|max:255|unique:users',
             'email' => 'max:255|email|unique:users',
@@ -72,6 +71,11 @@ class UserController extends Controller
 
         $values = array_only($request->input(), ['email']);
         $user->fill($values);
+
+        if ($request->input('is_admin') !== null) {
+            $this->authorize('changeRights', $user);
+            $user->is_admin = $request->input('is_admin');
+        }
 
         if ($request->input('password')) {
             $user->password_hash = Hash::make($request->input(['password']));

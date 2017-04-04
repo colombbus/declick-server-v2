@@ -30,6 +30,11 @@ class User extends Model implements AuthorizableContract
         'password_hash',
     ];
 
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
+
     public function authorizations()
     {
         return $this->hasMany('App\Authorization', 'owner_id');
