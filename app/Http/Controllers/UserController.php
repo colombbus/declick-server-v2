@@ -26,9 +26,9 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|min:5|max:255|unique:users',
+            'username' => 'required|min:5|max:255|unique:users|alpha_num',
             'email' => 'sometimes|max:255|email|unique:users',
-            'password' => 'min:6|max:255|required',
+            'password' => 'min:6|max:255|required|alpha_num',
         ]);
 
         $values = array_only($request->input(), ['username', 'email']);
