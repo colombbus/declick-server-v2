@@ -13,7 +13,7 @@ class UserResultController extends Controller
     {
         $user = User::findOrFail($userId);
 
-        return $user->results;
+        return response()->json($user->results)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
 
     public function create(Request $request, $userId)
