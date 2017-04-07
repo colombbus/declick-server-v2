@@ -73,10 +73,9 @@ $app->middleware([
 ]);
 
 
-// remove for now
-/*$app->routeMiddleware([
+$app->routeMiddleware([
     'members-only' => App\Http\Middleware\RejectGuests::class,
-]);*/
+]);
 
 /*
 |--------------------------------------------------------------------------
