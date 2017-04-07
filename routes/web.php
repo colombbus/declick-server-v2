@@ -80,11 +80,17 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         'ProjectResourceController@showContent'
     );
 
+    $app->get('resources/{resourceId}', [
+        'as' => 'resources',
+        'uses' => 'ProjectResourceController@show',
+    ]);
+
+    $app->get('resources', 'ProjectResourceController@index');
+
     $app->group([
         'prefix' => 'projects/{projectId}',
         'middleware' => 'members-only',
     ], function () use ($app) {
-        $app->get('resources', 'ProjectResourceController@index');
         $app->post('resources', 'ProjectResourceController@create');
         $app->patch(
             'resources/{resourceId}',
@@ -94,10 +100,6 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
             'resources/{resourceId}/content',
             'ProjectResourceController@updateContent'
         );
-        $app->get('resources/{resourceId}', [
-            'as' => 'resources',
-            'uses' => 'ProjectResourceController@show',
-        ]);
         $app->delete(
             'resources/{resourceId}',
             'ProjectResourceController@delete'
