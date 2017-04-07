@@ -72,9 +72,11 @@ $app->middleware([
     App\Http\Middleware\ETagSign::class,
 ]);
 
-$app->routeMiddleware([
+
+// remove for now
+/*$app->routeMiddleware([
     'members-only' => App\Http\Middleware\RejectGuests::class,
-]);
+]);*/
 
 /*
 |--------------------------------------------------------------------------
