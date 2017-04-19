@@ -9,9 +9,13 @@ use App\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return User::all();
+        if ($request->query('search')) {
+            $search = $request->query('search');
+            return User::where('username', 'LIKE', "%$search%")->paginate(15);
+        }
+        return User::paginate(15);
     }
 
     public function testUsernameAvailable(Request $request)
