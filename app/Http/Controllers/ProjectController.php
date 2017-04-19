@@ -49,7 +49,14 @@ class ProjectController extends Controller
             'name' => 'max:255',
         ]);
 
-        $values = array_only($request->input(), ['name']);
+        $values = array_only($request->input(), [
+            'name',
+            'scene_height',
+            'scene_width',
+            'entry_point_id',
+            'description',
+            'instructions'
+        ]);
 
         $project->update($values);
 
