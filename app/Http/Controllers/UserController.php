@@ -49,6 +49,11 @@ class UserController extends Controller
         return User::findOrFail($id);
     }
 
+    public function showCurrentUser(Request $request)
+    {
+        return $request->user();
+    }
+
     public function indexProjects($id)
     {
         $user = User::findOrFail($id);

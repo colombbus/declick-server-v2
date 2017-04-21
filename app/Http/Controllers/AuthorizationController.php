@@ -82,4 +82,19 @@ class AuthorizationController extends Controller
 
         return response('', 204);
     }
+
+    public function deleteCurrent(Request $request)
+    {
+        $headers = getallheaders();
+        list($type, $value) = explode(' ', $headers['Authorization'], 2);
+
+        $authorization =
+            Authorization::where(['token' => $value])->firstOrFail();
+
+        $this->authorize('delete', $authorization);
+
+        $authorization->delete();
+
+        return response('', 204);
+    }
 }

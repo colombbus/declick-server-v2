@@ -18,6 +18,7 @@ $app->get('/', function () use ($app) {
 $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
     // users routes
+    $app->get('users/me', 'UserController@showCurrentUser');
     $app->get('users', 'UserController@index');
     $app->post('test/username', 'UserController@testUsernameAvailable');
     $app->post('users', 'UserController@create');
@@ -50,6 +51,8 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     });
 
     // authorizations routes
+    $app->post('login', 'AuthorizationController@create');
+    $app->post('logout', 'AuthorizationController@deleteCurrent');
     $app->get('authorizations', 'AuthorizationController@index');
     $app->post('authorizations', 'AuthorizationController@create');
     $app->group(['middleware' => 'members-only'], function () use ($app) {
