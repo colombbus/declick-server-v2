@@ -11,7 +11,7 @@ class CircuitController extends Controller
 {
     public function index()
     {
-        return Circuit::paginate(5);
+        return Circuit::all();
     }
 
     public function create(Request $request)
