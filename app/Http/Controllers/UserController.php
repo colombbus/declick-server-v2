@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return User::paginate(14);
     }
 
     public function testUsernameAvailable(Request $request)
