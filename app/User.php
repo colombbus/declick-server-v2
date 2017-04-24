@@ -18,7 +18,7 @@ class User extends Model implements AuthorizableContract
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password_hash'
+        'username', 'email', 'password_hash', 'current_project_id'
     ];
 
     /**
@@ -48,6 +48,11 @@ class User extends Model implements AuthorizableContract
     public function defaultProject()
     {
         return $this->belongsTo('App\Project', 'default_project_id');
+    }
+
+    public function currentProject()
+    {
+        return $this->belongsTo('App\Project', 'current_project_id');
     }
 
     public function results()

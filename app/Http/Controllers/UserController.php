@@ -35,7 +35,7 @@ class UserController extends Controller
             'password' => 'min:6|max:255|required|alpha_num',
         ]);
 
-        $values = array_only($request->input(), ['username', 'email']);
+        $values = array_only($request->input(), ['username', 'email', 'current_project_id']);
         $values['password_hash'] = Hash::make($request->input(['password']));
         $user = User::create($values);
 
@@ -87,7 +87,7 @@ class UserController extends Controller
             'password' => 'max:255',
         ]);
 
-        $values = array_only($request->input(), ['email']);
+        $values = array_only($request->input(), ['email', 'current_project_id']);
         $user->fill($values);
 
         if ($request->input('is_admin') !== null) {
