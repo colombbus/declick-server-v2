@@ -74,6 +74,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         $app->post('projects', 'ProjectController@create');
         $app->patch('projects/{id}', 'ProjectController@update');
         $app->delete('projects/{id}', 'ProjectController@delete');
+        $app->post('projects/import/{id}','ProjectController@import');           
     });
 
     // projects resources routes
@@ -106,6 +107,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
             'resources/{resourceId}',
             'ProjectResourceController@delete'
         );
+     
     });
 
     // circuits routes

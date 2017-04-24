@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Project;
+use App\ProjectResource;
 
 class ProjectController extends Controller
 {
@@ -77,6 +78,43 @@ class ProjectController extends Controller
         $this->authorize('delete', $project);
 
         $project->delete();
+
+        return response('', 204);
+    }
+
+    public function import(Request $request, $id)
+    {
+        $sourceProject = Project::findOrFail($id);
+        
+        $user = $request->user();
+
+        $destinationProject = $user->defaultProject()->first();
+
+        $this->authorize('create', [ProjectResource::class, $destinationProject]);
+        
+        $resources = $sourceProject->resources()->get();
+
+        $sourceDirectory = storage_path('app/projects/' . $sourceProject->id . '/resources/');
+
+        $destinationDirectory = storage_path('app/projects/' . $destinationProject->id . '/resources/');
+
+        if (!file_exists($destinationDirectory)) {
+            mkdir($destinationDirectory, 0755, true);
+        }
+
+        foreach ($resources as $resource) {
+            // check that resource does not already exist in destination project
+            if ($destinationProject->resources()->where("file_name", $resource->file_name)->count() == 0) {
+                // copy resource
+                $newResource = $resource->replicate();
+                $destinationProject->resources()->save($newResource);
+                $sourceFile = $sourceDirectory.$resource->id;
+                if (file_exists($sourceFile)) {
+                    $destinationFile = $destinationDirectory.$newResource->id;
+                    \Illuminate\Support\Facades\File::copy($sourceFile, $destinationFile);
+                }
+            }
+        }
 
         return response('', 204);
     }
