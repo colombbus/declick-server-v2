@@ -38,7 +38,9 @@ class CircuitNode extends Model
             "id" => $this->id,
             "name" => $this->name,
             "link" => $this->link,
-            "parent_id" => intval($this->parent_id),
+            "parent_id" => ($this->parent_id === null)
+                ? null
+                : intval($this->parent_id),
             "position" => intval($this->position)
         ];
     }
