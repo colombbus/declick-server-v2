@@ -59,4 +59,19 @@ class User extends Model implements AuthorizableContract
     {
         return $this->hasMany('App\UserResult', 'user_id');
     }
+
+    public function attributesToArray()
+    {
+        return [
+            "id" => $this->id,
+            "username" => $this->username,
+            "email" => $this->email,
+            "default_project_id" => ($this->default_project_id === null)
+                ? null
+                : intval($this->default_project_id),
+            "current_project_id" => ($this->current_project_id === null)
+                ? null
+                : intval($this->current_project_id),
+        ];
+    }
 }

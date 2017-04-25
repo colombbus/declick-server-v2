@@ -31,4 +31,15 @@ class CircuitNode extends Model
     {
         return $this->hasMany('App\CircuitNode', 'parent_id');
     }
+
+    public function attributesToArray()
+    {
+        return [
+            "id" => $this->id,
+            "name" => $this->name,
+            "link" => $this->link,
+            "parent_id" => intval($this->parent_id),
+            "position" => intval($this->position)
+        ];
+    }
 }
