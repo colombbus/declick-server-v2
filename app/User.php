@@ -66,12 +66,13 @@ class User extends Model implements AuthorizableContract
             "id" => $this->id,
             "username" => $this->username,
             "email" => $this->email,
+            "is_admin" => $this->is_admin,
             "default_project_id" => ($this->default_project_id === null)
                 ? null
                 : intval($this->default_project_id),
             "current_project_id" => ($this->current_project_id === null)
                 ? null
-                : intval($this->current_project_id),
+                : intval($this->current_project_id)
         ];
     }
 }
