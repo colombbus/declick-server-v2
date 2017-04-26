@@ -25,9 +25,11 @@ class UserResultController extends Controller
             'user_id' => $userId
         ])->first();
 
+        /*
         if ($previousResult) {
             $previousResult->delete();
         }
+        */
 
         $values = array_only($request->input(), [
             'step_id',
