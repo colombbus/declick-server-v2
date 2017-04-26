@@ -21,4 +21,15 @@ class UserResult extends Model
     {
         return $this->belongsTo('App\CircuitNode', 'step_id');
     }
+
+    public function attributesToArray()
+    {
+        return [
+            "id" => $this->id,
+            "user_id" => intval($this->user_id),
+            "step_id" => intval($this->step_id),
+            "passed" => boolval($this->passed),
+            "solution" => $this->solution
+        ];
+    }
 }
