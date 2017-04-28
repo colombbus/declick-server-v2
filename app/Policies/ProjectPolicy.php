@@ -14,6 +14,7 @@ class ProjectPolicy
 
     public function delete(User $user, Project $project)
     {
-        return $user->is($project->owner()) || $user->isAdmin();
+        return !$project->isDefault() &&
+            ($user->is($project->owner()) || $user->isAdmin());
     }
 }
