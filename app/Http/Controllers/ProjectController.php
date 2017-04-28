@@ -88,7 +88,15 @@ class ProjectController extends Controller
         
         $user = $request->user();
 
-        $destinationProject = $user->defaultProject()->first();
+        $destinationProject = null;
+
+        $currentProject = $user->currentProject()->first();
+
+        if (!$currentProject) {
+            $destinationProject = $user->defaultProject()->first();
+        } else {
+            $destinationProject = $currentProject;
+        }
 
         $this->authorize('create', [ProjectResource::class, $destinationProject]);
         
