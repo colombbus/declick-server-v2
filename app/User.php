@@ -66,7 +66,7 @@ class User extends Model implements AuthorizableContract
             "id" => $this->id,
             "username" => $this->username,
             "email" => $this->email,
-            "is_admin" => $this->is_admin,
+            "is_admin" => boolval($this->is_admin),
             "default_project_id" => ($this->default_project_id === null)
                 ? null
                 : intval($this->default_project_id),
