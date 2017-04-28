@@ -40,4 +40,33 @@ class Project extends Model
     {
         return $this->hasMany('App\ProjectResource');
     }
+
+    public function isDefault()
+    {
+        $defaultProject = $this->owner()->defaultProject()->first();
+        if (!$defaultProject) {
+            return false;
+        }
+        return $this->is($defaultProject);
+    }
+
+    public function attributesToArray()
+    {
+        return [
+            "id" => $this->id,
+            "name" => $this->name,
+            "is_default" => $this->isDefault(),
+            "is_exercise" => boolval($this->is_exercise),
+            "is_public" => boolval($this->is_public),
+            "scene_height" => ($this->scene_height === null)
+                ? null
+                : intval($this->scene_height),
+            "scene_width" => ($this->scene_width === null)
+                ? null
+                : intval($this->scene_width),
+            "entry_point_id" => intval($this->entry_point_id),
+            "description" => $this->description,
+            "instructions" => $this->instructions
+        ];
+    }
 }
