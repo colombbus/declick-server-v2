@@ -50,6 +50,11 @@ class Project extends Model
         return $this->is($defaultProject);
     }
 
+    public function mainProject()
+    {
+        return $this->belongsTo('App\ProjectResource', 'main_program_id');
+    }
+
     public function attributesToArray()
     {
         return [
@@ -66,7 +71,8 @@ class Project extends Model
                 : intval($this->scene_width),
             "entry_point_id" => intval($this->entry_point_id),
             "description" => $this->description,
-            "instructions" => $this->instructions
+            "instructions" => $this->instructions,
+            "main_program_id" => $this->main_program_id,
         ];
     }
 }

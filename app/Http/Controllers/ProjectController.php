@@ -63,6 +63,16 @@ class ProjectController extends Controller
 
         $project->update($values);
 
+        $mainProjectId = $request->input('main_program_id');
+
+        if ($mainProjectId) {
+            $resource = ProjectResource::find($mainProjectId);
+            if ($resource) {
+                $project->mainProject()->associate($resource);
+                $project->save();
+            }
+        }
+
         return $project;
     }
 
@@ -85,7 +95,7 @@ class ProjectController extends Controller
     public function import(Request $request, $id)
     {
         $sourceProject = Project::findOrFail($id);
-        
+
         $user = $request->user();
 
         $destinationProject = null;
@@ -99,7 +109,7 @@ class ProjectController extends Controller
         }
 
         $this->authorize('create', [ProjectResource::class, $destinationProject]);
-        
+
         $resources = $sourceProject->resources()->get();
 
         $sourceDirectory = storage_path('app/projects/' . $sourceProject->id . '/resources/');
