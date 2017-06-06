@@ -72,7 +72,7 @@ class Project extends Model
             "entry_point_id" => intval($this->entry_point_id),
             "description" => $this->description,
             "instructions" => $this->instructions,
-            "main_program_id" => $this->main_program_id,
+            "main_program_id" => intval($this->main_program_id),
         ];
     }
 }
