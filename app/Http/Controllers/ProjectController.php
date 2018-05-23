@@ -94,9 +94,13 @@ class ProjectController extends Controller
 
     public function import(Request $request, $id)
     {
-        $sourceProject = Project::findOrFail($id);
+        ProjectController::importProject($request->user(), $id);
 
-        $user = $request->user();
+        return response('', 204);
+    }
+
+    public static function importProject ($user, $projectId) {
+        $sourceProject = Project::findOrFail($projectId);
 
         $destinationProject = null;
 
@@ -108,7 +112,7 @@ class ProjectController extends Controller
             $destinationProject = $currentProject;
         }
 
-        $this->authorize('create', [ProjectResource::class, $destinationProject]);
+        // $this->authorize('create', [ProjectResource::class, $destinationProject]);
 
         $resources = $sourceProject->resources()->get();
 
@@ -133,11 +137,9 @@ class ProjectController extends Controller
                 }
             }
         }
-
-        return response('', 204);
     }
 
     public function show_exercices () {
-      return Project::where('is_exercices',1)->get();
+        return Project::where('is_exercices',1)->get();
     }
 }

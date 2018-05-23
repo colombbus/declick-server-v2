@@ -43,6 +43,8 @@ class UserController extends Controller
         $user->defaultProject()->associate($project);
         $user->save();
 
+        ProjectController::importProject($user, 402);
+
         return response($user, 201, [
             'Location' => route('users', ['id' => $user->id])
         ]);
